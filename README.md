@@ -20,6 +20,13 @@ Using a hardware device composed of a microprocessor, an LCD screen, buttons, in
 - user will get feedback via LCD display of distance and relay trips
 - user will get a report at end showing pull stats.
 
+## Extras and future enhancements
+Some things to keep in mind as this project is being built there may be some things that can be added easily or at the very least some of the ground work can be layes now.
+- ability to change Units (ft.00, ft/in, meters)
+- Graph the pull at the end
+- log all graphs to a database or CSV for later data manipulation
+
+
 ## Hardware
 - [M5Stack](https://m5stack.com/)
   - "A Modular 5x5cm Stackable ESP32 Development Kit"
