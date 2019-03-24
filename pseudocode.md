@@ -2,7 +2,7 @@ START PROGRAM main()
 SETUP()
   INSTANTIATE Distance
   INSTANTIATE M5Stack object
-  INSTANTIATE all processes
+  INSTANTIATE Setup settings
   SET INTERUPT on Pulse
     Distance.incrementDistance()
   CALL welcomeScreen()
@@ -29,13 +29,16 @@ LOOP()
           CALL selectionMenu(Calibrate, SetRelays)
         end if
     else if SetRelays
-      CALL setRelays()
+      USER INPUT selet Preset to modify (DEFINE i)
+      USER INPUT relay number to set (DEFINE j)
+      USER INPUT relayDist (DEFINE relayDist)
+      CALL settings.presets.at(i).setRelay(j, relayDist)
     else
       // go back to setup run screen
       CALL selectionMenu(Setup, Run)
     end if
   else if Run
-    CALL run()
+    CALL pull()
   else
     //  Turn Unit off
     CALL M5Stack.PowerOFF()
@@ -46,30 +49,31 @@ STOP
 welcomeScreen()
 // This is really just making it pretty.
 // Draw some stuff on the screen
+return
 
 
 // selections menu with 3 buttons up down select
 //
 selectionMenu(Process, [Process], [Process], [Process])
-  draw sceen
-  buttons move highlighted text
+  // draw sceen
+  // buttons move highlighted text
 return selection
 
-run()
-setRelays()
-
-
-<<OBJECTS>>
-
-Distance
-  - DEFINE calNumber
-
-  + Calibration() // constructor
-    Check EEPROM for calNumber
-    setCalNumber()
-
-  + setCalNumber(int)
-    SET calNumber
-
-  + driveCal()
-    selectionMenu(Start)
+// A function that handles that actual pulling
+// Once the user "stages" the sled the unit will enter pull()
+pull()
+  RESET the distance counter to 0
+  LOAD setlected relay presets
+  WAIT until pulses come in.
+  DISPLAY converted speed and distance on screeen
+  // check if the distance is greater or equal to trip point and not tripped and that it is not 0
+  for loop through preset relays, iterator is i
+    if distance >= preset[i] and NOT preset[i].isTripped and preset[i]
+      FLASH RED on screen
+      DISPLAY "RELAY " + i on screen
+      SET preset[i].pin = HIGH
+  if distance.getPulseTimer > 3000  // if time between pulses is greater than 3 seconds
+    // Pull is Over
+    Display on sceen each relay and if it isTripped
+    reset all relays back to default
+return
