@@ -43,7 +43,7 @@ void setup() {
   digitalWrite(relayPin2, HIGH);
   // Setup Interupts
   // Interupt for speed signal
-  attachInterrupt(digitalPinToInterrupt(interruptPin), countSpeed, RISING);
+  attachInterrupt(digitalPinToInterrupt(interruptPin), countSpeed, HIGH);
   // Interupt for Buttons
   attachInterrupt(digitalPinToInterrupt(buttonA), buttonAPress, RISING);
   attachInterrupt(digitalPinToInterrupt(buttonB), buttonBPress, RISING);
