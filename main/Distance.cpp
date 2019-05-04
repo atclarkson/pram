@@ -20,6 +20,13 @@ int Distance::getCounts(void) {
 void Distance::incrementCounts(void) {
   counts++;
 }
+// calculate the distance in feet
+float countsToFeet(void) {
+  return calNumber / calFactor * counts;
+}
+// Distance to String
+String dxToString(void);
+
 // Default Destructor
 Distance::~Distance() {
 

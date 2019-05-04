@@ -2,17 +2,12 @@
 #define DISTANCE_H
 
 class Distance {
-public:
-  // Units Enumeration
-  enum  Units {
-    feetDec,
-    feetInch,
-    Meters
-  };
+
 private:
   Units unit;
   int counts = 0;
-  int calNumber;
+  int calNumber = 5000;
+  int calFactor = 300;  //  Means that there are calNumber per calFactor
 public:
   // Default Constructor
   Distance();
@@ -24,6 +19,11 @@ public:
   int getCounts(void);
   // increment the counts
   void incrementCounts(void);
+  // calculate the distance in feet
+  float countsToFeet(void);
+  // Distance to String
+  String dxToString(void);
+
   // Default Destructor
   ~Distance();
   Distance& operator++();      // Prefix increment
