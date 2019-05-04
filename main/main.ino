@@ -100,5 +100,5 @@ void DrawPulses() {
   String pulses =  String("# Pulses: " + (dx.getCounts() == 0 ? "0         " : String(dx.getCounts())));
   M5.Lcd.print(pulses); // Draw text centre at position 120, 30 using font 4
   M5.Lcd.setCursor (60, 40);
-  M5.Lcd.print(dx.dxToFeetString());
+  M5.Lcd.print(dx.dxToFeetString().c_str());
 }

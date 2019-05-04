@@ -21,16 +21,19 @@ void Distance::incrementCounts(void) {
   counts++;
 }
 // calculate the distance in feet
-float countsToFeet(void) {
-  return calNumber / calFactor * counts;
+double Distance::countsToFeet(void) {
+  double temp = (double)calFactor/(double)calNumber * (double)counts;
+  return temp;
 }
+
 // Distance to String
-String dxToFeetString(void) {
-  std::ostringstream strs;
-  strs << std::fixed << std::setw(6) << std::setprecision(2) << countsToFeet();
-  std::string str = strs.str();
-  std::string retStr = str + " Feet";
-  return retStr;
+String Distance::dxToFeetString(void) {
+  char feet[20];
+  char str_temp[6];
+  /* 4 is mininum width, 2 is precision; float value is copied onto str_temp*/
+  dtostrf(countsToFeet(), 4, 2, str_temp);
+  sprintf(feet,"%s Feet", str_temp);
+  return feet;
 }
 
 // Default Destructor

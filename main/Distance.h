@@ -1,9 +1,7 @@
 #ifndef DISTANCE_H
 #define DISTANCE_H
 
-#include <iostream>
-#include <sstream>
-#include <iomanip>
+#include <Arduino.h>
 
 class Distance {
 
@@ -23,7 +21,7 @@ public:
   // increment the counts
   void incrementCounts(void);
   // calculate the distance in feet
-  float countsToFeet(void);
+  double countsToFeet(void);
   // Distance to String
   String dxToFeetString(void);
 
