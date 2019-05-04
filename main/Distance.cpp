@@ -17,7 +17,7 @@ int Distance::getCounts(void) {
   return counts;
 }
 // Get the number of counts
-int getCalNumber(void){
+int Distance::getCalNumber(void){
   return calNumber;
 }
 // increment the counts

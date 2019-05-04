@@ -73,11 +73,7 @@ void loop() {
  }
 
  void buttonBPress() {
-   if(inSettings) {
-     // settings menu button behavior
-
-
-   } else if (inCal) {
+   if(inSettings || inCal) {
      // Enternum calls a routine to get a number from user and outputs number as int
      dx.setCalNumber(enterNum(dx.getCalNumber()));
      inSettings = false;
