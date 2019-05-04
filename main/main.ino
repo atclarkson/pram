@@ -85,14 +85,14 @@ void loop() {
 void countSpeed() {
   dx++;
   tripRelays();
-  DrawPulses();
+  DrawPulses(dx);
 }
 
 
 void resetCounter() {
   dx.reset();
   tripRelays();
-  DrawPulses();
+  DrawPulses(dx);
 }
 
 void tripRelays(){
@@ -110,31 +110,4 @@ void tripRelays(){
     digitalWrite(relayPin2, HIGH);
     drawRelayTrip(2,false);
   }
-}
-
-void drawRelayTrip(int relayNum, bool isTripped) {
-  M5.Lcd.setCursor (60, (relayNum + 1) * 25 + 25);
-  M5.Lcd.setTextFont(4);        // Select font 0 which is the Adafruit font
-  M5.Lcd.setTextColor(TFT_BLACK, WHITE); // Do not plot the background colour
-  String relayStatus = "";
-  if (isTripped) {
-    relayStatus =  String("Relay #" + String(relayNum) + " tripped.");
-  } else {
-    relayStatus =  String("                                                                         ");
-  }
-  M5.Lcd.print(relayStatus); // Draw text centre at position 120, 30 using font 4
-}
-
-void DrawPulses() {
-   M5.Lcd.setCursor (60, 15);
-   M5.Lcd.setTextFont(4);        // Select font 0 which is the Adafruit font
-  // The new larger fonts do not need to use the .setCursor call, coords are embedded
-  M5.Lcd.setTextColor(TFT_BLACK, WHITE); // Do not plot the background colour
-  String pulses =  String("# Pulses: " + (dx.getCounts() == 0 ? "0         " : String(dx.getCounts())));
-  M5.Lcd.print(pulses); // Draw text centre at position 120, 30 using font 4
-  M5.Lcd.setCursor (60, 40);
-  M5.Lcd.print(dx.dxToFeetString().c_str());
-  M5.Lcd.setCursor (60, 40+25);
-  String calcP =  String("# Pulses: " + (dx.feetToCounts(dx.countsToFeet()) == 0 ? "0         " : String(dx.feetToCounts(dx.countsToFeet()))));
-  M5.Lcd.print(calcP); // Draw text centre at position 120, 30 using font 4
 }

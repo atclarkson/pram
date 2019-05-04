@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <M5Stack.h>
+#include "draw.h"
 
 void settingsMenu();
 
