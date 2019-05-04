@@ -19,7 +19,7 @@ public:
   // Set the Cal Number This is the number of pulses in 300'
   void setCalNumber(int);
   // Reset the counts back to zero
-  void resetCounts(void);
+  void reset(void);
   // Get the number of counts
   int getCounts(void);
   // increment the counts

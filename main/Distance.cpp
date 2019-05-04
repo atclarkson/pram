@@ -9,7 +9,7 @@ void Distance::setCalNumber(int cal) {
   calNumber = cal;
 }
 // Reset the counts back to zero
-void Distance::resetCounts(void) {
+void Distance::reset(void) {
   counts = 0
 }
 // Get the number of counts
