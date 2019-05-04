@@ -31,11 +31,11 @@ int Distance::feetToCounts(double f) {
 }
 // Distance to String
 String Distance::dxToFeetString(void) {
-  char feet[20];
+  char feet[30];
   char str_temp[6];
   /* 4 is mininum width, 2 is precision; float value is copied onto str_temp*/
   dtostrf(countsToFeet(), 4, 2, str_temp);
-  sprintf(feet,"%s Feet            ", str_temp);
+  sprintf(feet,"%s Feet      ", str_temp);
   return feet;
 }
 
