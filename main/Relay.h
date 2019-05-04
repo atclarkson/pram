@@ -4,10 +4,11 @@
 #include <Arduino.h>
 
 class Relay {
-  Private:
+
+private:
     double dist;
     bool isTripped = false;
-  Public:
+public:
   // Default Constructor
   Relay();
   // Set the distance that the relay will trip
@@ -16,6 +17,6 @@ class Relay {
   int getDistance(void);
   // Default Destructor
   ~Relay();
-}
+};
 
 #endif // !RELAY_H

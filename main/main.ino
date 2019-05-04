@@ -7,6 +7,7 @@
 
 #include <M5Stack.h>
 #include "Distance.h"
+#include "Relay.h"
 
 // Global Variables - Pin Locations
 const byte relayPin1 = 5;
@@ -101,4 +102,7 @@ void DrawPulses() {
   M5.Lcd.print(pulses); // Draw text centre at position 120, 30 using font 4
   M5.Lcd.setCursor (60, 40);
   M5.Lcd.print(dx.dxToFeetString().c_str());
+  M5.Lcd.setCursor (60, 40+25);
+  String calcP =  String("# Pulses: " + (dx.feetToCounts(dx.countsToFeet()) == 0 ? "0         " : String(dx.feetToCounts(dx.countsToFeet()))));
+  M5.Lcd.print(calcP); // Draw text centre at position 120, 30 using font 4
 }
