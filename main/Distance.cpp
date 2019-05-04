@@ -25,7 +25,10 @@ double Distance::countsToFeet(void) {
   double temp = (double)calFactor/(double)calNumber * (double)counts;
   return temp;
 }
-
+// convert feet to counts
+int Distance::feetToCounts(double f) {
+  return f * (calNumber/calFactor);
+}
 // Distance to String
 String Distance::dxToFeetString(void) {
   char feet[20];

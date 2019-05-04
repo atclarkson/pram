@@ -22,6 +22,8 @@ public:
   void incrementCounts(void);
   // calculate the distance in feet
   double countsToFeet(void);
+  // convert feet to counts
+  int feetToCounts(double);
   // Distance to String
   String dxToFeetString(void);
 
