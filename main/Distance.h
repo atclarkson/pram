@@ -1,6 +1,10 @@
 #ifndef DISTANCE_H
 #define DISTANCE_H
 
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+
 class Distance {
 
 private:

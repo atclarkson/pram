@@ -25,7 +25,13 @@ float countsToFeet(void) {
   return calNumber / calFactor * counts;
 }
 // Distance to String
-String dxToString(void);
+String dxToFeetString(void) {
+  std::ostringstream strs;
+  strs << std::fixed << std::setw(6) << std::setprecision(2) << countsToFeet();
+  std::string str = strs.str();
+  std::string retStr = str + " Feet";
+  return retStr;
+}
 
 // Default Destructor
 Distance::~Distance() {
