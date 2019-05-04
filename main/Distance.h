@@ -7,7 +7,7 @@ class Distance {
 
 private:
   int counts = 0;
-  int calNumber = 5000;
+  int calNumber = 1000;
   int calFactor = 300;  //  Means that there are calNumber per calFactor
 public:
   // Default Constructor

@@ -6,5 +6,8 @@
 #include "draw.h"
 
 void settingsMenu();
+void enterCal();
+void setRelay1();
+void setRelay2();
 
 #endif // !SETTINGS_H

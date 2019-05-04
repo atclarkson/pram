@@ -20,6 +20,10 @@ const byte buttonB = 38;
 const byte buttonC = 37;
 const byte speaker = 25;
 bool inSettings =  false;
+bool inSetRelay1 = false;
+bool inSetRelay2 = false;
+bool inCal = false;
+
 Distance dx;
 
 void setup() {
@@ -27,16 +31,7 @@ void setup() {
   Serial.begin(9600);
   // Start M5
   M5.begin();
-  // Setup the sceen
-  M5.Lcd.fillScreen(TFT_BLACK);
-  M5.Lcd.fillScreen(WHITE);
-  M5.Lcd.setTextColor(TFT_BLACK);
-  // Draw button images
-  M5.Lcd.fillRoundRect(223,194,85,39,4,RED);
-  M5.Lcd.drawCentreString("Reset", 265, 205, 4); // Draw text centre at position 120, 30 using font 4
-  M5.Lcd.setTextColor(WHITE);
-  M5.Lcd.fillRoundRect(11,194,85,39,4,BLACK);
-  M5.Lcd.drawCentreString("Setup", 53, 205, 4); // Draw text centre at position 120, 30 using font 4
+  mainMenu();
   // Set pin mode for output
   pinMode(relayPin1, OUTPUT);
   pinMode(relayPin2, OUTPUT);
@@ -47,9 +42,9 @@ void setup() {
   // Interupt for speed signal
   attachInterrupt(digitalPinToInterrupt(interruptPin), countSpeed, RISING);
   // Interupt for Buttons
-  attachInterrupt(digitalPinToInterrupt(buttonA), buttonAPress, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(buttonB), buttonBPress, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(buttonC), buttonCPress, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(buttonA), buttonAPress, RISING);
+  attachInterrupt(digitalPinToInterrupt(buttonB), buttonBPress, RISING);
+  attachInterrupt(digitalPinToInterrupt(buttonC), buttonCPress, RISING);
 
 }
 
@@ -58,26 +53,50 @@ void loop() {
 }
 
  void buttonAPress() {
-   if(inSettings) {
+   if(inSettings || inCal || inSetRelay1 || inSetRelay2) {
      // settings menu button behavior
-
+     mainMenu();
+     inSettings = false;
+     inCal = false;
+     inSetRelay1 = false;
+     inSetRelay2 = false;
    } else {
      settingsMenu();
      inSettings = true;
+     inCal = true;
    }
  }
+
  void buttonBPress() {
    if(inSettings) {
      // settings menu button behavior
+
+
+   } else if (inCal) {
+
+   } else if (inSetRelay1) {
+
+   } else if (inSetRelay2) {
 
    } else {
 
    }
  }
  void buttonCPress() {
-   if(inSettings) {
+   if(inSettings || inCal) {
      // settings menu button behavior
-
+     inSetRelay1 = true;
+     setRelay1();
+     inCal = false;
+     inSettings = false;
+   } else if (inSetRelay1) {
+     inSetRelay2 = true;
+     setRelay2();
+     inSetRelay1 = false;
+   } else if (inSetRelay2) {
+     inCal = true;
+     enterCal();
+     inSetRelay2 = false;
    } else {
      resetCounter();
    }
@@ -110,4 +129,16 @@ void tripRelays(){
     digitalWrite(relayPin2, HIGH);
     drawRelayTrip(2,false);
   }
+}
+
+void mainMenu() {
+  // Setup the sceen
+  M5.Lcd.fillScreen(WHITE);
+  M5.Lcd.setTextColor(TFT_BLACK);
+  // Draw button images
+  M5.Lcd.fillRoundRect(223,194,85,39,4,RED);
+  M5.Lcd.drawCentreString("Reset", 265, 205, 4); // Draw text centre at position 120, 30 using font 4
+  M5.Lcd.setTextColor(WHITE);
+  M5.Lcd.fillRoundRect(11,194,85,39,4,BLACK);
+  M5.Lcd.drawCentreString("Setup", 53, 205, 4); // Draw text centre at position 120, 30 using font 4
 }
