@@ -35,7 +35,7 @@ String Distance::dxToFeetString(void) {
   char str_temp[6];
   /* 4 is mininum width, 2 is precision; float value is copied onto str_temp*/
   dtostrf(countsToFeet(), 4, 2, str_temp);
-  sprintf(feet,"%s Feet", str_temp);
+  sprintf(feet,"%s Feet            ", str_temp);
   return feet;
 }
 
