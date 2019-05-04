@@ -9,5 +9,6 @@ void settingsMenu();
 void enterCal();
 void setRelay1();
 void setRelay2();
+int enterNum(int);
 
 #endif // !SETTINGS_H

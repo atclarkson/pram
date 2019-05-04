@@ -33,3 +33,11 @@ void setRelay2() {
   M5.Lcd.print("Enter Relay 2 Distance?");
   drawButtons("EXIT", WHITE, BLACK, "YES", WHITE, 2444 , "NO", WHITE, RED);
 }
+
+int enterNum(int value) {
+
+  M5.Lcd.setTextColor(TFT_BLACK);
+  int curser = 15;
+  M5.Lcd.drawCentreString("88888", 160, 40, 7);
+  drawButtons("<", WHITE, BLACK, "^", WHITE, BLACK , "SAVE", WHITE, GREEN);
+}

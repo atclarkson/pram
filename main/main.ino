@@ -23,6 +23,7 @@ bool inSettings =  false;
 bool inSetRelay1 = false;
 bool inSetRelay2 = false;
 bool inCal = false;
+bool inEnterNum = false;
 
 Distance dx;
 Relay r1;
@@ -80,7 +81,7 @@ void loop() {
      // Enternum calls a routine to get a number from user and outputs number as int
      dx.setCalNumber(enterNum());
      inSettings = false;
-     incal = false;
+     inCal = false;
      inEnterNum = true;
    } else if (inSetRelay1) {
      r1.setDistance(enterNum());
