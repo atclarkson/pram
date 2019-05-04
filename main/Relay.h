@@ -6,7 +6,7 @@
 class Relay {
 
 private:
-    double dist;
+    int dist = 0;
     bool isTripped = false;
 public:
   // Default Constructor

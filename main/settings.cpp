@@ -35,9 +35,20 @@ void setRelay2() {
 }
 
 int enterNum(int value) {
-
+  String printValue;
+  if (value > 9999) {
+    printValue = value;
+  } else if (value > 999) {
+    printValue =  String("0" + value);
+  } else if (value > 99) {
+    printValue =  String("00" + value);
+  } else if (value > 9) {
+    printValue =  String("000" + value);
+  } else {
+    printValue =  String("0000" + value);
+  }
   M5.Lcd.setTextColor(TFT_BLACK);
   int curser = 15;
-  M5.Lcd.drawCentreString("88888", 160, 40, 7);
+  M5.Lcd.drawCentreString(printValue, 160, 40, 7);
   drawButtons("<", WHITE, BLACK, "^", WHITE, BLACK , "SAVE", WHITE, GREEN);
 }
