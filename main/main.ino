@@ -25,6 +25,8 @@ bool inSetRelay2 = false;
 bool inCal = false;
 
 Distance dx;
+Relay r1;
+Relay r2;
 
 void setup() {
   // Open Serial Port
@@ -60,6 +62,8 @@ void loop() {
      inCal = false;
      inSetRelay1 = false;
      inSetRelay2 = false;
+   } else if (inEnterNum) {
+
    } else {
      settingsMenu();
      inSettings = true;
@@ -73,10 +77,20 @@ void loop() {
 
 
    } else if (inCal) {
-
+     // Enternum calls a routine to get a number from user and outputs number as int
+     dx.setCalNumber(enterNum());
+     inSettings = false;
+     incal = false;
+     inEnterNum = true;
    } else if (inSetRelay1) {
-
+     r1.setDistance(enterNum());
+     inSetRelay1 = false;
+     inEnterNum = true;
    } else if (inSetRelay2) {
+     r2.setDistance(enterNum());
+     inSetRelay2 = false;
+     inEnterNum = true;
+   } else if (inEnterNum) {
 
    } else {
 
@@ -97,6 +111,8 @@ void loop() {
      inCal = true;
      enterCal();
      inSetRelay2 = false;
+   } else if (inEnterNum) {
+
    } else {
      resetCounter();
    }
