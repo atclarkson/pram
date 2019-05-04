@@ -26,8 +26,10 @@ public:
   void incrementCounts(void);
   // Default Destructor
   ~Distance();
-}
+  Distance& operator++();      // Prefix increment
+  Distance operator++(int);     // Postfix increment operator.
+};
 
-friend Distance& operator++( Distance& );       // Prefix increment
+
 
 #endif // !DISTANCE_H

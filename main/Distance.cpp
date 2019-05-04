@@ -2,7 +2,7 @@
 
 // Default Constructor
 Distance::Distance() {
-  resetCounts();
+  reset();
 }
 // Set the Cal Number This is the number of pulses in 300'
 void Distance::setCalNumber(int cal) {
@@ -10,7 +10,7 @@ void Distance::setCalNumber(int cal) {
 }
 // Reset the counts back to zero
 void Distance::reset(void) {
-  counts = 0
+  counts = 0;
 }
 // Get the number of counts
 int Distance::getCounts(void) {
@@ -18,7 +18,7 @@ int Distance::getCounts(void) {
 }
 // increment the counts
 void Distance::incrementCounts(void) {
-  counts++
+  counts++;
 }
 // Default Destructor
 Distance::~Distance() {
@@ -28,6 +28,14 @@ Distance::~Distance() {
 // Define prefix increment operator.
 Distance& Distance::operator++()
 {
-   count++;
+   incrementCounts();
    return *this;
+}
+
+// Define postfix increment operator.
+Distance Distance::operator++(int)
+{
+   Distance temp = *this;
+   ++*this;
+   return temp;
 }
