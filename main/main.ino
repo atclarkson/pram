@@ -79,16 +79,16 @@ void loop() {
 
    } else if (inCal) {
      // Enternum calls a routine to get a number from user and outputs number as int
-     dx.setCalNumber(enterNum());
+     dx.setCalNumber(enterNum(dx.getCalNumber()));
      inSettings = false;
      inCal = false;
      inEnterNum = true;
    } else if (inSetRelay1) {
-     r1.setDistance(enterNum());
+     r1.setDistance(enterNum(r1.getDistance()));
      inSetRelay1 = false;
      inEnterNum = true;
    } else if (inSetRelay2) {
-     r2.setDistance(enterNum());
+     r2.setDistance(enterNum(r2.getDistance()));
      inSetRelay2 = false;
      inEnterNum = true;
    } else if (inEnterNum) {

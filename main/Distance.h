@@ -18,6 +18,8 @@ public:
   void reset(void);
   // Get the number of counts
   int getCounts(void);
+  // Get the number of counts
+  int getCalNumber(void);
   // increment the counts
   void incrementCounts(void);
   // calculate the distance in feet
