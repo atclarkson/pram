@@ -8,7 +8,6 @@
 class Distance {
 
 private:
-  Units unit;
   int counts = 0;
   int calNumber = 5000;
   int calFactor = 300;  //  Means that there are calNumber per calFactor
@@ -26,7 +25,7 @@ public:
   // calculate the distance in feet
   float countsToFeet(void);
   // Distance to String
-  String dxToString(void);
+  String dxToFeetString(void);
 
   // Default Destructor
   ~Distance();

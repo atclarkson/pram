@@ -80,7 +80,7 @@ void tripRelays(){
 }
 
 void drawRelayTrip(int relayNum, bool isTripped) {
-  M5.Lcd.setCursor (60, (relayNum + 1) * 25);
+  M5.Lcd.setCursor (60, (relayNum + 1) * 25 + 25);
   M5.Lcd.setTextFont(4);        // Select font 0 which is the Adafruit font
   M5.Lcd.setTextColor(TFT_BLACK, WHITE); // Do not plot the background colour
   String relayStatus = "";
@@ -99,4 +99,6 @@ void DrawPulses() {
   M5.Lcd.setTextColor(TFT_BLACK, WHITE); // Do not plot the background colour
   String pulses =  String("# Pulses: " + (dx.getCounts() == 0 ? "0         " : String(dx.getCounts())));
   M5.Lcd.print(pulses); // Draw text centre at position 120, 30 using font 4
+  M5.Lcd.setCursor (60, 40);
+  M5.Lcd.print(dx.dxToFeetString());
 }
