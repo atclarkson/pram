@@ -6,6 +6,7 @@
  */
 
 #include <M5Stack.h>
+
 #include "Distance.h"
 #include "Relay.h"
 #include "settings.h"
@@ -25,6 +26,8 @@ bool inSetRelay2 = false;
 bool inCal = false;
 bool inEnterNum = false;
 
+int value = 0;
+
 Distance dx;
 Relay r1;
 Relay r2;
@@ -33,6 +36,7 @@ void setup() {
   // Open Serial Port
   Serial.begin(9600);
   // Start M5
+
   M5.begin();
   mainMenu();
   // Set pin mode for output
@@ -49,11 +53,13 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(buttonB), buttonBPress, RISING);
   attachInterrupt(digitalPinToInterrupt(buttonC), buttonCPress, RISING);
 
+
 }
 
 void loop() {
 
 }
+
 
  void buttonAPress() {
    if(inSettings || inCal || inSetRelay1 || inSetRelay2) {
@@ -75,16 +81,19 @@ void loop() {
  void buttonBPress() {
    if(inSettings || inCal) {
      // Enternum calls a routine to get a number from user and outputs number as int
-     dx.setCalNumber(enterNum(dx.getCalNumber()));
+     value = dx.getCalNumber();
+     dx.setCalNumber(enterNum(value));
      inSettings = false;
      inCal = false;
      inEnterNum = true;
    } else if (inSetRelay1) {
-     r1.setDistance(enterNum(r1.getDistance()));
+     value = r1.getDistance();
+     r1.setDistance(enterNum(value));
      inSetRelay1 = false;
      inEnterNum = true;
    } else if (inSetRelay2) {
-     r2.setDistance(enterNum(r2.getDistance()));
+     value = r2.getDistance();
+     r2.setDistance(enterNum(value));
      inSetRelay2 = false;
      inEnterNum = true;
    } else if (inEnterNum) {

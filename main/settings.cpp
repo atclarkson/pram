@@ -35,6 +35,41 @@ void setRelay2() {
 }
 
 int enterNum(int value) {
+   printValue(value);
+  //int curser = 0;
+
+  // int y = 90;
+  // int w = 29;
+  // int h = 6;
+  // M5.Lcd.fillRect(0, y, 320, h, WHITE);
+  // M5.Lcd.fillRect(81, y, w, h, GREEN);
+  // M5.Lcd.fillRect(113, y, w, h, RED);
+  // M5.Lcd.fillRect(145, y, w, h, BLUE);
+  // M5.Lcd.fillRect(177, y, w, h, ORANGE);
+  // M5.Lcd.fillRect(209, y, w, h, BLACK);
+  drawButtons("", WHITE, BLACK, "", WHITE, BLACK , "SAVE", WHITE, GREEN);
+  // left arrow
+  M5.Lcd.fillTriangle(43,213,62,202,62,224,WHITE);
+  // up arrow
+  M5.Lcd.fillTriangle(149,223,171,223,160,204,WHITE);
+  // while (!(M5.BtnC.wasPressed())) {
+  //   if (M5.BtnB.wasPressed()) {
+  //     value++;
+  //     delay(100);
+  //     printValue(value);
+  //
+  //   }
+  //   if (M5.BtnB.pressedFor(2000)) {
+  //
+  //      value += 10;
+  //      printValue(value);
+  //
+  //  }
+  // }
+
+}
+
+void printValue(int value) {
   String printValue = "";
   if (value > 9999) {
     printValue = value;
@@ -48,23 +83,6 @@ int enterNum(int value) {
     printValue =  String("0000" + (String)value);
   }
   M5.Lcd.setTextColor(TFT_BLACK);
-  int curser = 15;
+
   M5.Lcd.drawCentreString(printValue, 160, 40, 7);
-
-
-  int y = 90;
-  int w = 29;
-  int h = 6;
-  M5.Lcd.fillRect(0, y, 320, h, WHITE);
-  M5.Lcd.fillRect(81, y, w, h, GREEN);
-  M5.Lcd.fillRect(113, y, w, h, RED);
-  M5.Lcd.fillRect(145, y, w, h, BLUE);
-  M5.Lcd.fillRect(177, y, w, h, ORANGE);
-  M5.Lcd.fillRect(209, y, w, h, BLACK);
-  drawButtons("", WHITE, BLACK, "", WHITE, BLACK , "SAVE", WHITE, GREEN);
-  // left arrow
-  M5.Lcd.fillTriangle(43,213,62,202,62,224,WHITE);
-  // up arrow
-  M5.Lcd.fillTriangle(149,223,171,223,160,204,WHITE);
-  return value;
 }

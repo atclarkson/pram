@@ -10,5 +10,6 @@ void enterCal();
 void setRelay1();
 void setRelay2();
 int enterNum(int);
+void printValue(int value);
 
 #endif // !SETTINGS_H
