@@ -262,9 +262,11 @@ void loop() {
    }
  }
 void countSpeed() {
+  if (!(inSettings || inCal || inSetCal || inSetRelay1 || inSetRelay2 || inRelay1 || inRelay2)) {
   dx++;
   tripRelays();
   DrawPulses(dx);
+}
 }
 
 
