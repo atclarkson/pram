@@ -31,19 +31,22 @@ bool inSetRelay2 = false;
 
 int value = 0;
 
+// Instantiate the objects for Distance and Relays
 Distance dx;
 Relay r1;
 Relay r2;
 
-
+// Setup Program
 void setup() {
   // Open Serial Port
   Serial.begin(9600);
   // Start M5
-
   M5.begin();
+
+  // Initiate the main menu
   mainMenu();
 
+  // Set Defaults.  These should be fille from eeprom at later date
   r1.setDistance(100);
   r2.setDistance(200);
 
@@ -60,12 +63,14 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(buttonA), buttonAPress, RISING);
   attachInterrupt(digitalPinToInterrupt(buttonB), buttonBPress, RISING);
   attachInterrupt(digitalPinToInterrupt(buttonC), buttonCPress, RISING);
-
-
 }
 
+//  Main Program loop
 void loop() {
+  // Poll Buttons and other inputs
   M5.update();
+
+  // Check what mode we're in and set value accoringly
   if(inSetCal) {
     value = dx.getCalNumber();
   } else if (inSetRelay1) {
@@ -183,10 +188,11 @@ void loop() {
       }
     }
   }
+}  // !loop()
 
-}
-
-
+/**
+ * ISR for Button A
+ */
  void buttonAPress() {
    if(inSettings || inCal || inRelay1 || inRelay2) {
      // settings menu button behavior
@@ -196,6 +202,7 @@ void loop() {
      inRelay1 = false;
      inRelay2 = false;
    } else if (inSetCal || inSetRelay1 || inSetRelay2) {
+     // Do nothing if in one of the settings routines that uses main loop for user input.
 
    } else {
      settingsMenu();
@@ -204,6 +211,9 @@ void loop() {
    }
  }
 
+ /**
+  * ISR for Button B
+  */
  void buttonBPress() {
    if(inSettings || inCal) {
      // Enternum calls a routine to get a number from user and outputs number as int
@@ -225,11 +235,15 @@ void loop() {
      inEnterNum = true;
      inSetRelay2 = true;
    } else if (inSetCal || inSetRelay1 || inSetRelay2) {
-
+     // Do nothing if in one of the settings routines that uses main loop for user input.
    } else {
-
+      // Do nothing if in main.  there is no button here.
    }
  }
+
+ /**
+  * ISR for Button C
+  */
  void buttonCPress() {
    if(inSettings || inCal) {
      // settings menu button behavior
@@ -261,7 +275,12 @@ void loop() {
      resetCounter();
    }
  }
+
+/**
+ * This runs the distance incrementor and displays the distance on screen
+ */
 void countSpeed() {
+  // if in any settings mode "disable" pulses.  I hate this bool method I did here.
   if (!(inSettings || inCal || inSetCal || inSetRelay1 || inSetRelay2 || inRelay1 || inRelay2)) {
   dx++;
   tripRelays();
@@ -269,23 +288,30 @@ void countSpeed() {
 }
 }
 
-
+/**
+ * reset the distance pulled back to 0.
+ */
 void resetCounter() {
-  M5.Lcd.fillRect(0, 0, 320, 180, WHITE);
-  dx.reset();
-  tripRelays();
-  DrawPulses(dx);
+  M5.Lcd.fillRect(0, 0, 320, 180, WHITE);   // wipe upper half of screen
+  dx.reset();                               // reset distance
+  tripRelays();                             // run trip relays to reset relays and display
+  DrawPulses(dx);                           // draw the pules and distance back to screen
 }
 
+/**
+ * This will send signal to the relay and update sceen
+ */
 void tripRelays(){
-     if (dx.getCounts() >= dx.feetToCounts(r1.getDistance())) {
+  // Check if the counts are greater than the preset counts for relay 1
+  if (dx.getCounts() >= dx.feetToCounts(r1.getDistance())) { // need to convert distance to counts before comparison
     digitalWrite(relayPin1, LOW);
     drawRelayTrip(1,true);
   } else {
     digitalWrite(relayPin1, HIGH);
     drawRelayTrip(1,false);
   }
-    if (dx.getCounts() > dx.feetToCounts(r2.getDistance())) {
+  // Check if the counts are greater than the preset counts for relay 2
+  if (dx.getCounts() > dx.feetToCounts(r2.getDistance())) {  // need to convert distance to counts before comparison
     digitalWrite(relayPin2, LOW);
     drawRelayTrip(2,true);
   } else {
@@ -294,6 +320,9 @@ void tripRelays(){
   }
 }
 
+/**
+ * Displays the main menu
+ */
 void mainMenu() {
   // Setup the sceen
   M5.Lcd.fillScreen(WHITE);

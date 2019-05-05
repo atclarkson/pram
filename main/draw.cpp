@@ -1,5 +1,18 @@
 #include "draw.h"
 
+
+/**
+ * Will Draw icons above buttons on screen
+ * @param a_text        Button A Text
+ * @param a_textcolor   Button A Text Color
+ * @param a_buttoncolor Button A BG Color
+ * @param b_text        Button B Text
+ * @param b_textcolor   Button B Text Color
+ * @param b_buttoncolor Button B BG Color
+ * @param c_text        Button C Text
+ * @param c_textcolor   Button C Text Color
+ * @param c_buttoncolor Button C BG Color
+ */
 void drawButtons(String a_text, uint16_t a_textcolor,uint16_t a_buttoncolor, String b_text, uint16_t b_textcolor,uint16_t b_buttoncolor,String c_text, uint16_t c_textcolor,uint16_t c_buttoncolor) {
   // Draw button images
   M5.Lcd.setTextColor(a_textcolor);
@@ -14,31 +27,32 @@ void drawButtons(String a_text, uint16_t a_textcolor,uint16_t a_buttoncolor, Str
 
 }
 
+/**
+ * Draw the relay trip status on the screeen
+ * @param relayNum  relay you want to draw
+ * @param isTripped true if the relay has tripped
+ */
 void drawRelayTrip(int relayNum, bool isTripped) {
   M5.Lcd.setCursor (60, 120+20 * relayNum);
-  M5.Lcd.setTextFont(2);        // Select font 0 which is the Adafruit font
-  M5.Lcd.setTextColor(TFT_BLACK, WHITE); // Do not plot the background colour
+  M5.Lcd.setTextFont(2);
+  M5.Lcd.setTextColor(TFT_BLACK, WHITE);
   String relayStatus = "";
   if (isTripped) {
     relayStatus =  String("Relay #" + String(relayNum) + " tripped.");
   } else {
     relayStatus =  String("                                                                         ");
   }
-  M5.Lcd.print(relayStatus); // Draw text centre at position 120, 30 using font 4
+  M5.Lcd.print(relayStatus);
 }
 
+/**
+ * Draw the pulses and feet to screen
+ * @param dx the distance object
+ */
 void DrawPulses(Distance &dx) {
-  // M5.Lcd.setCursor (60, 15);
-  // M5.Lcd.setTextFont(4);        // Select font 0 which is the Adafruit font
-  // The new larger fonts do not need to use the .setCursor call, coords are embedded
-  //M5.Lcd.setTextColor(TFT_BLACK, WHITE); // Do not plot the background colour
+  // This string concatinates text with the number of pulses.
   String pulses =  String("# Pulses: " + (dx.getCounts() == 0 ? "0         " : String(dx.getCounts())));
-  M5.Lcd.drawCentreString(pulses, 160, 15, 4); // Draw text centre at position 120, 30 using font 4
-  //M5.Lcd.setCursor (60, 40);
-  //M5.Lcd.setTextFont(7);
-  //M5.Lcd.print(dx.dxToFeetString().c_str());
+  M5.Lcd.drawCentreString(pulses, 160, 15, 4); // Draw text centre at position 160, 15 using font 4
   M5.Lcd.drawCentreString(dx.dxToFeetString().c_str(), 160, 40, 7);
-  //M5.Lcd.setTextFont(4);
-  //M5.Lcd.setCursor (60, 40+55);
-  M5.Lcd.drawCentreString("Feet", 160, 40+55, 4); // Draw text centre at position 120, 30 using font 4
+  M5.Lcd.drawCentreString("Feet", 160, 40+55, 4);
 }
