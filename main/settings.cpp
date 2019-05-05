@@ -86,7 +86,7 @@ void printValue(int value) {
   } else {
     printValue =  String("0000" + (String)value);
   }
-  M5.Lcd.setTextColor(TFT_BLACK);
+  M5.Lcd.setTextColor(TFT_BLACK, WHITE);
 
   M5.Lcd.drawCentreString(printValue, 160, 40, 7);
 }

@@ -63,7 +63,26 @@ void setup() {
 }
 
 void loop() {
+  M5.update();
+  if(inSetCal) {
+    value = dx.getCalNumber();
+  }
+  if (inSetCal) {
+    if (M5.BtnB.wasPressed()) {
+      value++;
+      delay(100);
+      dx.setCalNumber(value);
+      printValue(value);
 
+    }
+    if (M5.BtnB.pressedFor(2000)) {
+      while (M5.BtnB.isPressed()) {
+        value += 10;
+        dx.setCalNumber(value);
+        printValue(value);
+      }
+   }
+ }
 }
 
 
@@ -75,7 +94,7 @@ void loop() {
      inCal = false;
      inSetRelay1 = false;
      inSetRelay2 = false;
-   } else if (inEnterNum) {
+   } else if (inSetCal) {
 
    } else {
      settingsMenu();
@@ -103,9 +122,7 @@ void loop() {
      inSetRelay2 = false;
      inEnterNum = true;
    } else if (inSetCal) {
-     dx.setCalNumber(dx.getCalNumber()+1);
-     value = dx.getCalNumber();
-     enterNum(value);
+
    } else {
 
    }
@@ -125,8 +142,10 @@ void loop() {
      inCal = true;
      enterCal();
      inSetRelay2 = false;
-   } else if (inEnterNum) {
-
+   } else if (inSetCal) {
+     inSetCal = false;
+     inCal = true;
+     enterCal();
    } else {
      resetCounter();
    }
