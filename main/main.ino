@@ -214,13 +214,13 @@ void loop() {
      inSetCal = true;
    } else if (inRelay1) {
      value = r1.getDistance();
-     r1.setDistance(enterNum(value));
+     enterNum(value);
      inRelay1 = false;
      inEnterNum = true;
      inSetRelay1 = true;
    } else if (inRelay2) {
      value = r2.getDistance();
-     r2.setDistance(enterNum(value));
+     enterNum(value);
      inRelay2 = false;
      inEnterNum = true;
      inSetRelay2 = true;

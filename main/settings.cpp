@@ -53,7 +53,7 @@ int enterNum(int value) {
   // M5.Lcd.fillRect(209, y, w, h, BLACK);
   drawButtons("", WHITE, BLACK, "", WHITE, BLACK , "SAVE", WHITE, GREEN);
   // left arrow
-  M5.Lcd.fillTriangle(43,213,62,202,62,224,WHITE);
+  M5.Lcd.fillTriangle(42,204,64,204,53,223,WHITE);
   // up arrow
   M5.Lcd.fillTriangle(149,223,171,223,160,204,WHITE);
   // while (!(M5.BtnC.wasPressed())) {
