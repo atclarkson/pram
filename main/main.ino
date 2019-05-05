@@ -32,6 +32,7 @@ Distance dx;
 Relay r1;
 Relay r2;
 
+
 void setup() {
   // Open Serial Port
   Serial.begin(9600);
@@ -39,6 +40,10 @@ void setup() {
 
   M5.begin();
   mainMenu();
+
+  r1.setDistance(100);
+  r2.setDistance(200);
+
   // Set pin mode for output
   pinMode(relayPin1, OUTPUT);
   pinMode(relayPin2, OUTPUT);
@@ -131,20 +136,21 @@ void countSpeed() {
 
 
 void resetCounter() {
+  M5.Lcd.fillRect(0, 0, 320, 180, WHITE);
   dx.reset();
   tripRelays();
   DrawPulses(dx);
 }
 
 void tripRelays(){
-     if (dx.getCounts() > 1000) {
+     if (dx.getCounts() >= dx.feetToCounts(r1.getDistance())) {
     digitalWrite(relayPin1, LOW);
     drawRelayTrip(1,true);
   } else {
     digitalWrite(relayPin1, HIGH);
     drawRelayTrip(1,false);
   }
-    if (dx.getCounts() > 2000) {
+    if (dx.getCounts() > dx.feetToCounts(r2.getDistance())) {
     digitalWrite(relayPin2, LOW);
     drawRelayTrip(2,true);
   } else {
