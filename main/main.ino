@@ -123,6 +123,7 @@ void loop() {
     }
     if (M5.BtnB.pressedFor(2000)) {
       while (M5.BtnB.read()) {
+        delay(10);
         value += 1;
         value = value > 300 ? 0 : value;
         r1.setDistance(value);
@@ -138,6 +139,7 @@ void loop() {
     }
     if (M5.BtnA.pressedFor(2000)) {
       while (M5.BtnA.read()) {
+        delay(10);
         value -= 1;
         value = value < 0 ? 300 : value;
         r1.setDistance(value);
@@ -157,6 +159,7 @@ void loop() {
     }
     if (M5.BtnB.pressedFor(2000)) {
       while (M5.BtnB.read()) {
+        delay(10);
         value += 1;
         value = value > 300 ? 0 : value;
         r2.setDistance(value);
@@ -172,6 +175,7 @@ void loop() {
     }
     if (M5.BtnA.pressedFor(2000)) {
       while (M5.BtnA.read()) {
+        delay(10);
         value -= 1;
         value = value < 0 ? 300 : value;
         r2.setDistance(value);
