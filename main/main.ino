@@ -76,7 +76,7 @@ void loop() {
 
     }
     if (M5.BtnB.pressedFor(2000)) {
-      while (M5.BtnB.isPressed()) {
+      while (M5.BtnB.read()) {
         value += 10;
         dx.setCalNumber(value);
         printValue(value);
