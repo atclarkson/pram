@@ -15,7 +15,7 @@ void drawButtons(String a_text, uint16_t a_textcolor,uint16_t a_buttoncolor, Str
 }
 
 void drawRelayTrip(int relayNum, bool isTripped) {
-  M5.Lcd.setCursor (60, 40 * relayNum);
+  M5.Lcd.setCursor (60, 120+20 * relayNum);
   M5.Lcd.setTextFont(2);        // Select font 0 which is the Adafruit font
   M5.Lcd.setTextColor(TFT_BLACK, WHITE); // Do not plot the background colour
   String relayStatus = "";
