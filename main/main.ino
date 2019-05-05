@@ -21,11 +21,13 @@ const byte buttonB = 38;
 const byte buttonC = 37;
 const byte speaker = 25;
 bool inSettings =  false;
-bool inSetRelay1 = false;
-bool inSetRelay2 = false;
+bool inRelay1 = false;
+bool inRelay2 = false;
 bool inCal = false;
 bool inEnterNum = false;
 bool inSetCal = false;
+bool inSetRelay1 = false;
+bool inSetRelay2 = false;
 
 int value = 0;
 
@@ -66,35 +68,130 @@ void loop() {
   M5.update();
   if(inSetCal) {
     value = dx.getCalNumber();
+  } else if (inSetRelay1) {
+    value = r1.getDistance();
+  } else if (inSetRelay2) {
+    value = r2.getDistance();
   }
+
+  // if in the calibration set up mode listen for button presses
   if (inSetCal) {
+    // If button B is press increase cal number by 1
     if (M5.BtnB.wasPressed()) {
       value++;
+      value = value > 99999 ? 0 : value;
       delay(100);
       dx.setCalNumber(value);
       printValue(value);
+    }
+    // If button B is held increase cal number by 10
+    if (M5.BtnB.pressedFor(2000)) {
+      while (M5.BtnB.read()) {
+        value += 10;
+        value = value > 99999 ? 0 : value;
+        dx.setCalNumber(value);
+        printValue(value);
+      }
+    }
+    // If button A is pressed decrease cal number by 1
+    if (M5.BtnA.wasPressed()) {
+      value--;
+      value = value < 0 ? 99999 : value;
+      delay(100);
+      dx.setCalNumber(value);
+      printValue(value);
+    }
+    // If button A is held decrease cal number by 10
+    if (M5.BtnA.pressedFor(2000)) {
+      while (M5.BtnA.read()) {
+        value -= 10;
+        value = value < 0 ? 99999 : value;
+        dx.setCalNumber(value);
+        printValue(value);
+      }
+    }
+  }
 
+  // if in the relay 1 set up mode listen for button presses
+  if (inSetRelay1) {
+    if (M5.BtnB.wasPressed()) {
+      value++;
+      value = value > 300 ? 0 : value;
+      delay(100);
+      r1.setDistance(value);
+      printValue(value);
     }
     if (M5.BtnB.pressedFor(2000)) {
       while (M5.BtnB.read()) {
         value += 10;
-        dx.setCalNumber(value);
+        value = value > 300 ? 0 : value;
+        r1.setDistance(value);
         printValue(value);
       }
-   }
- }
+    }
+    if (M5.BtnA.wasPressed()) {
+      value--;
+      value = value < 0 ? 300 : value;
+      delay(100);
+      r1.setDistance(value);
+      printValue(value);
+    }
+    if (M5.BtnA.pressedFor(2000)) {
+      while (M5.BtnA.read()) {
+        value -= 10;
+        value = value < 0 ? 300 : value;
+        r1.setDistance(value);
+        printValue(value);
+      }
+    }
+  }
+
+  // if in the relay 1 set up mode listen for button presses
+  if (inSetRelay2) {
+    if (M5.BtnB.wasPressed()) {
+      value++;
+      value = value > 300 ? 0 : value;
+      delay(100);
+      r2.setDistance(value);
+      printValue(value);
+    }
+    if (M5.BtnB.pressedFor(2000)) {
+      while (M5.BtnB.read()) {
+        value += 10;
+        value = value > 300 ? 0 : value;
+        r2.setDistance(value);
+        printValue(value);
+      }
+    }
+    if (M5.BtnA.wasPressed()) {
+      value--;
+      value = value < 0 ? 300 : value;
+      delay(100);
+      r2.setDistance(value);
+      printValue(value);
+    }
+    if (M5.BtnA.pressedFor(2000)) {
+      while (M5.BtnA.read()) {
+        value -= 10;
+        value = value < 0 ? 300 : value;
+        r2.setDistance(value);
+        printValue(value);
+      }
+    }
+  }
+
 }
 
 
  void buttonAPress() {
-   if(inSettings || inCal || inSetRelay1 || inSetRelay2) {
+   if(inSettings || inCal || inRelay1 || inRelay2) {
      // settings menu button behavior
      mainMenu();
      inSettings = false;
      inCal = false;
-     inSetRelay1 = false;
-     inSetRelay2 = false;
-   } else if (inSetCal) {
+     inRelay1 = false;
+     inRelay2 = false;
+   } else if (inSetCal || inSetRelay1 || inSetRelay2) {
 
    } else {
      settingsMenu();
@@ -111,17 +208,19 @@ void loop() {
      inSettings = false;
      inCal = false;
      inSetCal = true;
-   } else if (inSetRelay1) {
+   } else if (inRelay1) {
      value = r1.getDistance();
      r1.setDistance(enterNum(value));
-     inSetRelay1 = false;
+     inRelay1 = false;
      inEnterNum = true;
-   } else if (inSetRelay2) {
+     inSetRelay1 = true;
+   } else if (inRelay2) {
      value = r2.getDistance();
      r2.setDistance(enterNum(value));
-     inSetRelay2 = false;
+     inRelay2 = false;
      inEnterNum = true;
-   } else if (inSetCal) {
+     inSetRelay2 = true;
+   } else if (inSetCal || inSetRelay1 || inSetRelay2) {
 
    } else {
 
@@ -130,22 +229,30 @@ void loop() {
  void buttonCPress() {
    if(inSettings || inCal) {
      // settings menu button behavior
-     inSetRelay1 = true;
+     inRelay1 = true;
      setRelay1();
      inCal = false;
      inSettings = false;
-   } else if (inSetRelay1) {
-     inSetRelay2 = true;
+   } else if (inRelay1) {
+     inRelay2 = true;
      setRelay2();
-     inSetRelay1 = false;
-   } else if (inSetRelay2) {
+     inRelay1 = false;
+   } else if (inRelay2) {
      inCal = true;
      enterCal();
-     inSetRelay2 = false;
+     inRelay2 = false;
    } else if (inSetCal) {
      inSetCal = false;
      inCal = true;
      enterCal();
+   } else if (inSetRelay1) {
+     inSetRelay1 = false;
+     inRelay1 = true;
+     setRelay1();
+   } else if (inSetRelay2) {
+     inSetRelay2 = false;
+     inRelay2 = true;
+     setRelay2();
    } else {
      resetCounter();
    }
