@@ -4,6 +4,7 @@ void settingsMenu() {
   enterCal();
 }
 
+// Sub menu to enter cal number
 void enterCal() {
   M5.Lcd.fillScreen(WHITE);
   M5.Lcd.setTextColor(TFT_BLACK);
@@ -14,6 +15,7 @@ void enterCal() {
   drawButtons("EXIT", WHITE, BLACK, "YES", WHITE, 2444 , "NO", WHITE, RED);
 }
 
+// sub menu to enter relay 1 trip point in feet
 void setRelay1() {
   M5.Lcd.fillScreen(WHITE);
   M5.Lcd.setTextColor(TFT_BLACK);
@@ -24,6 +26,7 @@ void setRelay1() {
   drawButtons("EXIT", WHITE, BLACK, "YES", WHITE, 2444 , "NO", WHITE, RED);
 }
 
+// sub menu to enter relay 2 trip point in feet
 void setRelay2() {
   M5.Lcd.fillScreen(WHITE);
   M5.Lcd.setTextColor(TFT_BLACK);
@@ -33,6 +36,7 @@ void setRelay2() {
   M5.Lcd.print("Enter Relay 2 Distance?");
   drawButtons("EXIT", WHITE, BLACK, "YES", WHITE, 2444 , "NO", WHITE, RED);
 }
+
 
 int enterNum(int value) {
    printValue(value);

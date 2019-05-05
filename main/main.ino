@@ -25,6 +25,7 @@ bool inSetRelay1 = false;
 bool inSetRelay2 = false;
 bool inCal = false;
 bool inEnterNum = false;
+bool inSetCal = false;
 
 int value = 0;
 
@@ -87,10 +88,10 @@ void loop() {
    if(inSettings || inCal) {
      // Enternum calls a routine to get a number from user and outputs number as int
      value = dx.getCalNumber();
-     dx.setCalNumber(enterNum(value));
+     enterNum(value);
      inSettings = false;
      inCal = false;
-     inEnterNum = true;
+     inSetCal = true;
    } else if (inSetRelay1) {
      value = r1.getDistance();
      r1.setDistance(enterNum(value));
@@ -101,8 +102,10 @@ void loop() {
      r2.setDistance(enterNum(value));
      inSetRelay2 = false;
      inEnterNum = true;
-   } else if (inEnterNum) {
-
+   } else if (inSetCal) {
+     dx.setCalNumber(dx.getCalNumber()+1);
+     value = dx.getCalNumber();
+     enterNum(value);
    } else {
 
    }
