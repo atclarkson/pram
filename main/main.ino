@@ -6,7 +6,8 @@
  */
 
 #include <M5Stack.h>
-
+#include <M5ez.h>
+#include <ezTime.h>
 #include "Distance.h"
 #include "Relay.h"
 #include "settings.h"
@@ -37,8 +38,11 @@ void setup() {
   // Open Serial Port
   Serial.begin(9600);
   // Start M5
-
-  M5.begin();
+  #include <themes/default.h>
+  #include <themes/dark.h>
+  ezt::setDebug(INFO);
+  ez.begin();
+//  M5.begin();
   mainMenu();
 
   r1.setDistance(100);
