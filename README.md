@@ -14,11 +14,9 @@ Adam Clarkson - *Initial work*
 Using a hardware device composed of a microprocessor, an LCD screen, buttons, input lines and output lines I will provide a solution to all the problems listed above.
 
 ## Requirements
-- user must be able to input a predetermined calibration number (number of pulses in a constant distance) or be able to drive the vehicle off a constant distance to determine the number of pulses.
-- user must be able to set 4 relay trip points
-- user must be able to set 3 presets for the trip points.
+- user must be able to input a predetermined calibration number (number of pulses in a constant distance).
+- user must be able to set 2 relay trip points
 - user will get feedback via LCD display of distance and relay trips
-- user will get a report at end showing pull stats.
 
 ## Extras and future enhancements
 Some things to keep in mind as this project is being built there may be some things that can be added easily or at the very least some of the ground work can be layes now.
