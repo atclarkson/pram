@@ -24,6 +24,10 @@ Some things to keep in mind as this project is being built there may be some thi
 - Graph the pull at the end
 - log all graphs to a database or CSV for later data manipulation
 
+## Proof of concept video
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=NBZp2373LVg
+" target="_blank"><img src="http://img.youtube.com/vi/NBZp2373LVg/0.jpg" 
+alt="Proof of Concept Video" width="240" height="180" border="10" /></a>
 
 ## Hardware
 - [M5Stack](https://m5stack.com/)
